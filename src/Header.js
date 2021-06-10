@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { Link } from 'react-router-dom';
+import {
+     Link 
+} from "react-router-dom";
 
 
 
@@ -13,7 +15,11 @@ function Header() {
     return (
         <Container>
             <HeaderLogo>
-                <img src={"https://www.shopnow.com.ar/images/logoSN.webp"} />
+                <Link to ="/">
+
+                     <img src={"https://www.shopnow.com.ar/images/logoSN.webp"} />
+                
+                </Link>
             </HeaderLogo>
 
             <HeaderOptionAddress>
@@ -35,7 +41,7 @@ function Header() {
             <HeaderNavItems>
                   
                     <HeaderOption>
-                       <OptionlineOne>Hola,Julian</OptionlineOne>
+                       <OptionlineOne>Que hace vo!</OptionlineOne>
                        <OptionlineTwo>Account & Lists</OptionlineTwo>
                     </HeaderOption>
 
@@ -44,14 +50,16 @@ function Header() {
                       <OptionlineTwo>& Orders</OptionlineTwo>
                     </HeaderOption>
 
-                    <HeaderOption>
-                    <Link to="/cart">
+                    
+                    
                         <HeaderOptionCart>
+                        <Link to="/cart">
                             <ShoppingBasketIcon/>
                             <CartCount>4</CartCount>
+                        </Link>
                         </HeaderOptionCart> 
-                    </Link>
-                </HeaderOption>
+                    
+                
                    
 
             </HeaderNavItems>   
