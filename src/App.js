@@ -4,6 +4,7 @@ import Header from './Header';
 import Cart from './Cart';
 import Home from './Home';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import styled from 'styled-components';
 
 
 
@@ -12,7 +13,7 @@ function App() {
   return (
 
     <Router>
-      <div className="App">
+      <Container>
         <Header />
           <Switch>
             <Route path="/cart">
@@ -22,10 +23,16 @@ function App() {
             <Route path ="/">
                 <Home />     
             </Route> 
+
          </Switch>
-      </div>
+      </Container>
     </Router>
   );
 }
 
 export default App;
+
+const Container = styled.div ` 
+  background-color:#EAEDED;
+
+`

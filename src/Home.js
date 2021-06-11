@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
-
+import { db } from './firebase';
 
 function Home() {
+    const [products, setProducts] = useState([])
+
+    const getProducts = () => { 
+        db.collection('products').onSnapshot((snapshot)=>{
+            let tempProducts = []
+
+            console.log(snapshot);
+
+
+        })
+    }
+
+    getProducts()
+
     return (
         <Container>
             <Banner> 
             
             </Banner>
             <Content>
-            <Product />
-            <Product />
-               
+                <Product />
+                <Product />
             </Content>
         </Container>
     )
@@ -26,7 +39,7 @@ const Container = styled.div `
 
 `
 const Banner = styled.div `
-        background-image: url('https://wallpaperaccess.com/full/5687726.png');
+        background-image: url('https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_TallHero_Gamers_es_US_1x._CB667161802_.jpg');
         min-height:600px;    
         background-position:center;
         background-size: cover;
@@ -41,6 +54,7 @@ const Content = styled.div `
     padding-left:10px;
     padding-right: 10px;
     margin-top: -350px;
+    z-index:100px;
     display:flex;
 `
 
