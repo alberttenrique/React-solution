@@ -1,23 +1,54 @@
 import React from 'react'
 import styled from 'styled-components';
+import { db } from './firebase';
 
 
+function Product({ title, price, rating, image, id }) {
 
-function Product() {
+      const addToCart = () =>{
+        /*   console.log(id); */
+
+          const cartItem = db.collection("cartItems").doc(id);
+          cartItem.get()
+          .then((doc) => {
+           // console.log(doc);
+            if(doc.exists){ 
+                  cartItem.update({
+                    quantity: doc.data().quantity + 1
+                })
+              } else {
+                  db.collection("cartItems").doc(id).set({
+                     name:  title,
+                     image: image,
+                     price: price,
+                     quantity: 1
+                  })
+              }
+            })
+        }
+    // console.log(props)
     return (
         <Container>
             <Title>
-            Acer Aspire 5 
+            { title }
               </Title> 
             <Price> 
-            US$ 439.00 
+            ${ price }
             </Price>
             <Rating>
-            ⭐⭐⭐⭐⭐ 
+            {
+
+              Array( rating )
+              .fill()
+              .map( rating => <p>⭐</p>)
+            } 
             </Rating>
-            <Image src='https://images-na.ssl-images-amazon.com/images/I/71vvXGmdKWL._AC_SL1500_.jpg' />
-                        <ActionSection> 
-            <AddCartButton> 
+            <Image src={ image} />
+            <ActionSection> 
+            <AddCartButton 
+                onClick={addToCart}
+            > 
+            
                 Add to Cart
             </AddCartButton>
             </ActionSection>
@@ -47,7 +78,11 @@ const Price = styled.span `
 
 `
 
-const Rating = styled.div ` `
+const Rating = styled.div `
+  display:fle;
+  padding-top:5px;
+
+`
 const Image = styled.img `
     max-height:200px;
     object-fit:contain;
@@ -66,5 +101,6 @@ const AddCartButton = styled.button `
         background-color:#f0c14b;
         border: 2px solid #a88734;
         border-radius:2px ;
+        cursor:pointer;
 
 `

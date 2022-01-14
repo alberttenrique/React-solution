@@ -3,29 +3,55 @@ import styled from 'styled-components';
 import Product from './Product';
 import { db } from './firebase';
 
+
+// Mostrar productos traidos desde la db ,creada en Firebase
+
 function Home() {
     const [products, setProducts] = useState([])
 
     const getProducts = () => { 
-        db.collection('products').onSnapshot((snapshot)=>{
+        db.collection('products').onSnapshot((snapshot) => {
             let tempProducts = []
 
-            console.log(snapshot);
+            tempProducts = snapshot.docs.map((doc) => (
+            {
 
-
+                id: doc.id,
+                product: doc.data()
+                
+            }
+            
+            ));
+          
+            setProducts(tempProducts);
         })
     }
 
-    getProducts()
-
+            useEffect(() =>{
+/*             console.log(getProducts)//console.log("llamada products");
+ */             getProducts()
+        }, [])
+          //console.log(products)
     return (
         <Container>
             <Banner> 
             
             </Banner>
             <Content>
-                <Product />
-                <Product />
+                {
+                    products.map ((data)=>(
+                    <Product 
+                        title={data.product.name}
+                        price={data.product.price}
+                        rating={data.product.rating}
+                        image={data.product.image}
+                        id={ data.id }
+                    />
+                    ))
+                 }
+
+               
+             
             </Content>
         </Container>
     )
@@ -36,19 +62,17 @@ export default Home
 const Container = styled.div `
     max-width:1500px;
     margin: 0 auto;
+    overflow:visible;
 
 `
 const Banner = styled.div `
-        background-image: url('https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_TallHero_Gamers_es_US_1x._CB667161802_.jpg');
+        background-image: url('https://i.ytimg.com/vi/HTezIOtx2Go/maxresdefault.jpg');
         min-height:600px;    
         background-position:center;
         background-size: cover;
-        z-index: 1;
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5));
-
-
+        z-index:0;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) );
 `
-
 const Content = styled.div `
     background:white;
     padding-left:10px;

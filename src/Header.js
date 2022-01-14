@@ -11,13 +11,28 @@ import {
 
 
 
-function Header() {
+function Header({ cartItems, user, signOut}) {
+
+     const getCount = () => {
+            let count = 0;
+            //es un Loop de todos los items del carrito
+           /*  console.log(cartItems) */
+            cartItems.forEach((item) =>{
+                       
+                //poner la cantidad de los items en el carrito el total
+                count += item.product.quantity;
+            })
+
+            return count;
+            }
+
+
     return (
         <Container>
             <HeaderLogo>
                 <Link to ="/">
 
-                     <img src={"https://www.shopnow.com.ar/images/logoSN.webp"} />
+                     <img src={"https://www.solutionbox.com.ar/images/sbox-logo.png"} />
                 
                 </Link>
             </HeaderLogo>
@@ -40,8 +55,8 @@ function Header() {
 
             <HeaderNavItems>
                   
-                    <HeaderOption>
-                       <OptionlineOne>Que hace vo!</OptionlineOne>
+                    <HeaderOption onClick={signOut}>
+                       <OptionlineOne>Bienvenido! { user.name } </OptionlineOne>
                        <OptionlineTwo>Account & Lists</OptionlineTwo>
                     </HeaderOption>
 
@@ -55,7 +70,7 @@ function Header() {
                         <HeaderOptionCart>
                         <Link to="/cart">
                             <ShoppingBasketIcon/>
-                            <CartCount>4</CartCount>
+                            <CartCount>{getCount()}</CartCount>
                         </Link>
                         </HeaderOptionCart> 
                     
@@ -81,7 +96,7 @@ const Container = styled.div `
    color:white;
 
 `
-const HeaderLogo = styled.div`
+const HeaderLogo = styled.div `
    img {
        width:100px;
        margin-left: 11px;
@@ -158,6 +173,8 @@ const HeaderOptionCart = styled.div `
 `
 const CartCount = styled.div `
          padding-left:4px;
+         font-weight:700;
+         color: #f08804;
 
 
 `
